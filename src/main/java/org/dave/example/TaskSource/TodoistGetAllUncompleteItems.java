@@ -1,4 +1,4 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource;
 
 /**
  * Created by David on 17/02/2015.

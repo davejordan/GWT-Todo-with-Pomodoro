@@ -1,17 +1,18 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource;
 
 import org.apache.commons.io.IOUtils;
+import org.dave.example.TaskSource.Authentication.OAuthAuthenticationNegotiator;
 
 import java.io.IOException;
 
 /**
  * Created by David on 17/02/2015.
  */
-public class StaticAuthenticationModule extends AuthenticationModule {
+public class StaticOAuthAuthenticationNegotiator extends OAuthAuthenticationNegotiator {
 
   private String resourceName;
 
-  public StaticAuthenticationModule(String resourceName) {
+  public StaticOAuthAuthenticationNegotiator(String resourceName) {
     this.resourceName = resourceName;
   }
 

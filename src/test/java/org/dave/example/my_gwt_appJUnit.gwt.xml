@@ -10,6 +10,6 @@
   <inherits name='org.dave.example.my_gwt_app'/>
 
   <!-- Specify the path to any remote services.                   -->
-  <servlet path="/my_gwt_app/taskService" class="org.dave.example.server.TaskListServiceImpl" />
+  <servlet path="/my_gwt_app/taskService" class="org.dave.example.TaskSource.TaskListServiceImpl"/>
 
 </module>

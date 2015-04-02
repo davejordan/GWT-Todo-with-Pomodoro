@@ -1,5 +1,7 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource;
 
+import org.dave.example.TaskSource.Authentication.OAuthAuthenticationNegotiator;
+import org.dave.example.shared.TaskList;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -12,12 +14,12 @@ import java.net.URL;
 public class TodoistAPITaskSource implements TaskSource {
 
   protected String accessToken;
-  private AuthenticationModule authenticationModule;
+  private OAuthAuthenticationNegotiator OAuthAuthenticationNegotiator;
 
-  public TodoistAPITaskSource(AuthenticationModule authenticationModule) throws JSONException {
-    this.authenticationModule = authenticationModule;
+  public TodoistAPITaskSource(OAuthAuthenticationNegotiator OAuthAuthenticationNegotiator) throws JSONException {
+    this.OAuthAuthenticationNegotiator = OAuthAuthenticationNegotiator;
     try {
-      this.accessToken = authenticationModule.getAuthenticationToken();
+      this.accessToken = OAuthAuthenticationNegotiator.getAuthenticationToken();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -43,7 +45,7 @@ public class TodoistAPITaskSource implements TaskSource {
   @Override
   public void authenticate() {
     try {
-      accessToken = authenticationModule.getAuthenticationToken();
+      accessToken = OAuthAuthenticationNegotiator.getAuthenticationToken();
     } catch (IOException e) {
       e.printStackTrace();
     } catch (JSONException e) {

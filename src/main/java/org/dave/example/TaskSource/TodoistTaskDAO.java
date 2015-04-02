@@ -1,4 +1,4 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class TodoistTaskPOJO implements TaskTransmissionRepresentation {
+public class TodoistTaskDAO implements TaskTransmissionRepresentation {
 
   @SerializedName("due_date")
   @Expose
@@ -225,10 +225,10 @@ public class TodoistTaskPOJO implements TaskTransmissionRepresentation {
     if (other == this) {
       return true;
     }
-    if ((other instanceof TodoistTaskPOJO) == false) {
+    if ((other instanceof TodoistTaskDAO) == false) {
       return false;
     }
-    TodoistTaskPOJO rhs = ((TodoistTaskPOJO) other);
+    TodoistTaskDAO rhs = ((TodoistTaskDAO) other);
     return new EqualsBuilder().append(dueDate, rhs.dueDate).append(userId, rhs.userId).append(collapsed, rhs.collapsed).append(inHistory, rhs.inHistory).append(priority, rhs.priority).append(itemOrder, rhs.itemOrder).append(content, rhs.content).append(indent, rhs.indent).append(projectId, rhs.projectId).append(id, rhs.id).append(checked, rhs.checked).append(dateString, rhs.dateString).isEquals();
   }
 

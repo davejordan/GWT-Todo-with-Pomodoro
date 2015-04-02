@@ -1,4 +1,4 @@
-package org.dave.example.client;
+package org.dave.example.events;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -19,7 +19,7 @@ public class TaskListUpdateFailedEvent extends GwtEvent<TaskListUpdateFailedEven
 
   @Override
   protected void dispatch(TaskListUpdateFailedEventHandler handler) {
-    //handler calls the method being implemented in the eventhanderl
+    //handler calls the method being implemented in the eventhander
     handler.failUpdate(this);
   }
 }

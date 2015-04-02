@@ -1,4 +1,4 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource.Authentication;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -17,7 +17,7 @@ import java.net.URL;
 /**
  * Created by David on 15/02/2015.
  */
-public class AuthenticationModule {
+public class OAuthAuthenticationNegotiator {
 
   private String secretResourceName;
 
@@ -30,26 +30,28 @@ public class AuthenticationModule {
   public String API_SECRET;
   public String OPENID_EMAIL = "openid email";
 
-  public AuthenticationModule() {
+  public OAuthAuthenticationNegotiator() {
   }
 
-  public AuthenticationModule(String secretResourceName) {
+  public OAuthAuthenticationNegotiator(String secretResourceName) {
     this.secretResourceName = secretResourceName;
     initialiseConnectionStrings();
   }
 
-  public void getSecretInformation(String secrecyFile){
-    OAuthSecrecyService oAuthSecrecyService = new OAuthSecrecyService(secrecyFile);
-    API_KEY = oAuthSecrecyService.api_Key();
-    API_SECRET = oAuthSecrecyService.api_secret();
-    EMAIL = oAuthSecrecyService.email();
-  }
+
 
   public void initialiseConnectionStrings() {
     getSecretInformation(secretResourceName);
     todoistSite = "https://todoist.com/API/";
     todoistLoginGoogle = todoistSite + "loginWithGoogle?" + EMAIL+"&oauth2_token=";
     todoistGetProjects = todoistSite + "getProjects?" + "token=";
+  }
+
+  public void getSecretInformation(String secrecyFile) {
+    OAuthSecrecyService oAuthSecrecyService = new OAuthSecrecyService(secrecyFile);
+    API_KEY = oAuthSecrecyService.apiKey();
+    API_SECRET = oAuthSecrecyService.apiSecret();
+    EMAIL = oAuthSecrecyService.email();
   }
 
   public String getAuthenticationToken() throws IOException, JSONException {

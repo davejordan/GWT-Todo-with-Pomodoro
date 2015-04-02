@@ -3,11 +3,8 @@ package org.dave.example.client;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.dave.example.shared.Task;
 
-import java.util.Set;
+import java.util.HashSet;
 
-/**
- * The async counterpart of <code>GreetingService</code>.
- */
 public interface TaskListServiceAsync {
-  void getTaskList(AsyncCallback<Set<Task>> callback) throws IllegalArgumentException;
+  void getTaskList(AsyncCallback<HashSet<Task>> callback) throws IllegalArgumentException;
 }

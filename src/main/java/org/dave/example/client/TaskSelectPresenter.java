@@ -5,14 +5,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
-import org.dave.example.events.TaskListUpdatedEvent;
-import org.dave.example.shared.Task;
+import org.dave.example.shared.TaskList;
 
-import java.util.Set;
-
-/**
- * Created by David on 27/02/2015.
- */
 public class TaskSelectPresenter implements Presenter {
 
   private final TaskListServiceAsync taskListService;
@@ -25,7 +19,7 @@ public class TaskSelectPresenter implements Presenter {
 
     public void showError(String name);
 
-    public void setList(Set<Task> taskList);
+    public void setList(TaskList taskList);
 
     public Widget asWidget();
 
@@ -36,27 +30,19 @@ public class TaskSelectPresenter implements Presenter {
     this.taskListService = taskListServiceAsync;
     this.view = view;
     this.eventBus = eventBus;
-    bind();
   }
 
   @Override
   public void bind() {
-    eventBus.addHandler(TaskListUpdatedEvent.TYPE,
-        new TaskListUpdatedEvent.TaskListUpdatedEventHandler() {
-          @Override
-          public void updateTaskList(TaskListUpdatedEvent event) {
-            view.setList(event.getUpdatedTaskSet());
-          }
-        });
+    view.setPresenter(this);
+  }
 
-    eventBus.addHandler(TaskListUpdateFailedEvent.TYPE,
-        new TaskListUpdateFailedEvent.TaskListUpdateFailedEventHandler() {
-          @Override
-          public void failUpdate(TaskListUpdateFailedEvent event) {
-            view.showError("Failed to update list");
-          }
-        }
-    );
+  public void failUpdate() {
+    view.showError("Failed to update list");
+  }
+
+  public void updateTaskList(TaskList taskList) {
+    view.setList(taskList);
   }
 
   @Override
@@ -64,19 +50,9 @@ public class TaskSelectPresenter implements Presenter {
     panel.add(view.asWidget());
   }
 
+  //TODO: Pull out call-back from Presenter? Should it know about this behaviour?
   public void refreshFullTaskList() {
-    taskListService.getTaskList(new AsyncCallback<Set<Task>>() {
-      @Override
-      public void onFailure(Throwable caught) {
-        eventBus.fireEvent(new TaskListUpdateFailedEvent());
-      }
-
-      @Override
-      public void onSuccess(Set<Task> result) {
-        eventBus.fireEvent(new TaskListUpdatedEvent(result));
-      }
-    });
-
+    AsyncCallback callBack = new TaskListServiceEventBusCallBack(this.eventBus);
+    taskListService.getTaskList(callBack);
  }
-
 }

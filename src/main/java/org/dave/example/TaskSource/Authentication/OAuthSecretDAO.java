@@ -1,9 +1,9 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource.Authentication;
 
 /**
  * Created by David on 09/03/2015.
  */
-public class OAuthSecretJSON {
+public class OAuthSecretDAO {
 
   public String EMAIL;
   public String API_KEY;

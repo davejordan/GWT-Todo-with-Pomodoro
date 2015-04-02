@@ -4,20 +4,43 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Panel;
+import org.dave.example.events.TaskListUpdateFailedEvent;
+import org.dave.example.events.TaskListUpdatedEvent;
 
 public class AppController implements ValueChangeHandler {
 
   private EventBus eventBus;
   private TaskListServiceAsync taskListService;
+  private CallbackFactory factory;
+  private TaskSelectView taskSelectView;
+  private TaskSelectPresenter taskSelectPresenter;
 
-  public AppController(TaskListServiceAsync taskListService, EventBus eventBus) {
+  public AppController(TaskListServiceAsync taskListService, EventBus eventBus, CallbackFactory factory) {
     this.eventBus = eventBus;
     this.taskListService = taskListService;
-    bind();
+    this.factory = factory;
   }
 
-  private void bind() {
+  public void build() {
+    buildPresenters();
+    TaskSelectPresenterEventHandler eventHandler = buildTaskSelectPresenterEventHandler();
+    bindTaskListSelectPresenter(eventHandler);
   }
+
+  private TaskSelectPresenterEventHandler buildTaskSelectPresenterEventHandler() {
+    return new TaskSelectPresenterEventHandler(taskSelectPresenter);
+  }
+
+  private void buildPresenters() {
+    taskSelectView = new TaskSelectView();
+    taskSelectPresenter = new TaskSelectPresenter(eventBus, taskListService, taskSelectView);
+  }
+
+  public void bindTaskListSelectPresenter(TaskSelectPresenterEventHandler eventHandler) {
+    eventBus.addHandler(TaskListUpdateFailedEvent.TYPE, eventHandler);
+    eventBus.addHandler(TaskListUpdatedEvent.TYPE, eventHandler);
+  }
+
 
   @Override
   public void onValueChange(ValueChangeEvent event) {
@@ -25,10 +48,6 @@ public class AppController implements ValueChangeHandler {
   }
 
   public void go(Panel panel){
-    TaskSelectView taskSelectView = new TaskSelectView();
-    TaskSelectPresenter taskSelectPresenter = new TaskSelectPresenter(eventBus,taskListService, taskSelectView);
-    taskSelectView.setPresenter(taskSelectPresenter);
-
     panel.add(taskSelectView.asWidget());
   }
 

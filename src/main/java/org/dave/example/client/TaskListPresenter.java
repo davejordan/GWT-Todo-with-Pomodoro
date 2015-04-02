@@ -3,7 +3,6 @@ package org.dave.example.client;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
-import org.dave.example.events.TaskListUpdatedEvent;
 import org.dave.example.shared.Task;
 
 import java.util.Set;
@@ -38,13 +37,17 @@ public class TaskListPresenter implements Presenter {
 
   @Override
   public void bind() {
-    eventBus.addHandler(TaskListUpdatedEvent.TYPE,
-        new TaskListUpdatedEvent.TaskListUpdatedEventHandler() {
-          @Override
-          public void updateTaskList(TaskListUpdatedEvent event) {
-
-          }
-        });
+//    eventBus.addHandler(TaskListUpdatedEvent.TYPE,
+//        new TaskListUpdatedEvent.TaskListUpdatedEventHandler() {
+//          @Override
+//          public void updateTaskList(TaskListUpdatedEvent event) {
+//          }
+//
+//          @Override
+//          public GwtEvent.Type<TaskListUpdatedEvent.TaskListUpdatedEventHandler> TYPE() {
+//            return null;
+//          }
+//        });
   }
 
   @Override

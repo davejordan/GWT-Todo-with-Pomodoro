@@ -1,4 +1,4 @@
-package org.dave.example.server;
+package org.dave.example.TaskSource;
 
 import java.net.MalformedURLException;
 import java.net.URL;

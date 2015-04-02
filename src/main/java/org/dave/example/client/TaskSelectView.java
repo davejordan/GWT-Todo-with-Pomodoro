@@ -8,8 +8,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.*;
 import org.dave.example.shared.Task;
-
-import java.util.Set;
+import org.dave.example.shared.TaskList;
 
 /**
  * Created by David on 27/02/2015.
@@ -53,7 +52,7 @@ public class TaskSelectView extends Composite implements TaskSelectPresenter.Dis
   }
 
   @Override
-  public void setList(Set<Task> taskList) {
+  public void setList(TaskList taskList) {
     list.clear();
     for (Task t : taskList) {
       list.addItem(t.getName());

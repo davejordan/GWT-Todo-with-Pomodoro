@@ -11,13 +11,14 @@ public class my_gwt_app implements EntryPoint {
 
   private static TaskListServiceAsync taskListRPCService = GWT.create(TaskListService.class);
   private static EventBus eventBus = new SimpleEventBus();
-  private static AppController appViewer = new AppController(taskListRPCService, eventBus);
+  private static CallbackFactory callbackFactory = new CallbackFactory(eventBus);
+  private static AppController appController = new AppController(taskListRPCService, eventBus, callbackFactory);
 
   public void onModuleLoad() {
 
-
+    appController.build();
     Panel taskListPanel = RootPanel.get("taskListContainer");
-    appViewer.go(taskListPanel);
+    appController.go(taskListPanel);
 
 
 
